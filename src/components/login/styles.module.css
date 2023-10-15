@@ -1,9 +1,0 @@
-.label_border_radius {
-  border-radius: 0 0.5rem 0.5rem 0;
-}
-
-
-.active_button{
-  color: white;
-  background-color: var(--button-red-hex);
-}
