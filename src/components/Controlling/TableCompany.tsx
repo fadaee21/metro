@@ -41,6 +41,3 @@ const TableCompany = ({ data, toggleModal }: Props) => {
 };
 
 export default TableCompany;
-function toggleModal() {
-  throw new Error("Function not implemented.");
-}

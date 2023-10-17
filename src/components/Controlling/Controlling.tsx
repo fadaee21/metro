@@ -70,6 +70,7 @@ const Controlling = () => {
         <ModalOperation
           handleSetValue={handleSetValue}
           toggleModal={toggleModal}
+          value={value} // pass just for get log after closing modal
         />
       )}
     </>

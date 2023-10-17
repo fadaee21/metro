@@ -1,4 +1,4 @@
-import { HandleSetValue } from "@/type";
+import { HandleSetValue, IPostObject } from "@/type";
 import Image from "next/image";
 import React, { useEffect, useState } from "react";
 import DatePicker, { DateObject } from "react-multi-date-picker";
@@ -10,9 +10,14 @@ import TimePicker from "react-multi-date-picker/plugins/time_picker";
 interface Props {
   toggleModal: () => void;
   handleSetValue: HandleSetValue;
+  value: IPostObject;
 }
 
-const ModalOperation = ({ toggleModal, handleSetValue }: Props) => {
+const ModalOperation = ({
+  toggleModal,
+  handleSetValue,
+  value: objectValueToPost,
+}: Props) => {
   const [checkedState, setCheckedState] = useState({
     printing: false,
     installing: false,
@@ -41,6 +46,11 @@ const ModalOperation = ({ toggleModal, handleSetValue }: Props) => {
     });
   };
 
+  const closeClick = () => {
+    toggleModal();
+    console.log(objectValueToPost);
+  };
+
   return (
     <div className="bg-gray-950/50 w-full h-full absolute top-0 left-0 flex justify-center items-center overflow-hidden text-field-label text-sm">
       <div className="h-full w-full flex justify-center items-start transform translate-y-1/4">
@@ -48,7 +58,7 @@ const ModalOperation = ({ toggleModal, handleSetValue }: Props) => {
           <div className=" w-11/12 py-2 ">
             <div className="flex justify-between items-start px-3">
               <h6>عملیات</h6>
-              <i onClick={toggleModal} className="cursor-pointer">
+              <i onClick={closeClick} className="cursor-pointer">
                 <Image
                   src="assets/icons/Close Square.svg"
                   alt="close"
@@ -128,13 +138,6 @@ const ModalOperation = ({ toggleModal, handleSetValue }: Props) => {
                   onChange={setTimeVal}
                 />
               </div>
-              {/* <input
-                type="time"
-                name="time"
-                id="time"
-                onChange={(e) => handleSetValue({ time: e.target.value })}
-                className="bg-red"
-              /> */}
             </div>
           </div>
         </div>
