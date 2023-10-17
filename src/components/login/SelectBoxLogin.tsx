@@ -1,12 +1,13 @@
-import React from "react";
+import { forwardRef, useId } from "react";
 import Select from "react-select";
 
 interface Props {
   options: { value: number; label: string }[];
 }
 
-const SelectBoxLogin = React.forwardRef((props: Props, ref: any) => {
+const SelectBoxLogin = forwardRef((props: Props, ref: any) => {
   const { options, ...field } = props;
+  const id = useId();
   return (
     <div className="relative w-full h-14 border-2 border-field-border rounded-lg z-10 p-1 bg-field-background">
       <div
@@ -20,6 +21,7 @@ const SelectBoxLogin = React.forwardRef((props: Props, ref: any) => {
         {...field}
         options={options}
         placeholder="انتخاب کنید"
+        instanceId={id}
         styles={{
           control: (base) => ({
             ...base,

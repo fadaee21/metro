@@ -1,5 +1,4 @@
 import { forwardRef } from "react";
-import styles from "./styles.module.css"
 interface Props {
   type: string;
   label: string;

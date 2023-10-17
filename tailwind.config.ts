@@ -28,6 +28,7 @@ const config: Config = {
         "font-title-black": "var(--font-title-black)",
         "background-gray": "var(--background-gray-hex)",
         "background-gray-l": "var(--background-gray-l-hex)",
+        "gray-light-5": "var(--gray-light-5)",
       },
       width: {
         48: "48%",

@@ -1,4 +1,4 @@
-import Image from "next/legacy/image";
+import Image from "next/image";
 import React, { Dispatch, forwardRef } from "react";
 
 interface Props {
@@ -39,10 +39,9 @@ const ImageUpload = forwardRef((props: Props, ref: any) => {
         <div className="relative w-full h-full">
           <Image
             src={value}
-            alt="Selected"
-            layout="fill"
-            objectFit="cover"
-            className="rounded-customRadius_1 h-auto"
+            alt="Description of Image"
+            fill
+            className="rounded-customRadius_1 w-full h-auto object-cover"
           />
           <div>
             <button
@@ -72,10 +71,12 @@ const ImageUpload = forwardRef((props: Props, ref: any) => {
           className={disabled ? "" : "cursor-pointer"}
         >
           <Image
-            src={"/assets/icon/add-photo.svg"}
-            width={80}
-            height={80}
-            alt="icon"
+            src={"/assets/icons/add-photo.svg"}
+            width={0}
+            height={0}
+            sizes="100vw"
+            alt="add-photo"
+            className="w-full h-auto"
           />
         </label>
       )}

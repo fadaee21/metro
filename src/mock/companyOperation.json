@@ -1,0 +1,26 @@
+[
+  {
+    "id": 1,
+    "companyName": "ایرانسل",
+    "commercialSpace": "دستگیره",
+    "codeSpace": "752"
+  },
+  {
+    "id": 2,
+    "companyName": "همراه اول",
+    "commercialSpace": "کتیبه",
+    "codeSpace": "411"
+  },
+  {
+    "id": 3,
+    "companyName": "ایرانسل",
+    "commercialSpace": "کتیبه",
+    "codeSpace": "520"
+  },
+  {
+    "id": 4,
+    "companyName": "شهر فرش",
+    "commercialSpace": "کتیبه",
+    "codeSpace": "124"
+  }
+]

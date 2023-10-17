@@ -15,7 +15,9 @@ const Login = () => {
   const router = useRouter();
   const { control, handleSubmit, watch } = useForm<IFormInput>();
   const routerHandle =
-    watch("role")?.label === "کنترل" ? "/controller" : "/photographer";
+    watch("role")?.label === "کنترل" ? "/controlling" : "/photographer";
+  const disabledSubmit =
+    !watch("username") && !watch("password") && !watch("role");
   const submitForm: SubmitHandler<IFormInput> = (data) => {
     console.log(data);
     router.replace(routerHandle);
@@ -51,7 +53,7 @@ const Login = () => {
             )}
           />
         </div>
-        <LoginButton label="ورود" />
+        <LoginButton disabled={disabledSubmit} label="ورود" />
       </div>
     </form>
   );

@@ -1,6 +1,5 @@
-import { forwardRef } from "react";
+import { forwardRef, useId } from "react";
 import Select from "react-select";
-
 type Option = { value: number; label: string };
 interface Props {
   options: Option[];
@@ -11,13 +10,16 @@ interface Props {
 
 const SelectBox = forwardRef((props: Props, ref: any) => {
   const { options, fieldValue, isDisabled, placeholder, ...field } = props;
+  const id = useId();
   return (
     <Select
       {...field}
+      instanceId={id}
       options={options}
       placeholder={placeholder}
       isDisabled={isDisabled}
       value={fieldValue}
+      ref={ref}
       styles={{
         control: (base) => ({
           ...base,
