@@ -1,7 +1,12 @@
 import { HandleSetValue } from "@/type";
 import Image from "next/image";
-import React, { useState } from "react";
-
+import React, { useEffect, useState } from "react";
+import DatePicker, { DateObject } from "react-multi-date-picker";
+import persian from "react-date-object/calendars/persian";
+import persian_fa from "react-date-object/locales/persian_fa";
+import gregorian from "react-date-object/calendars/gregorian";
+import gregorian_en from "react-date-object/locales/gregorian_en";
+import TimePicker from "react-multi-date-picker/plugins/time_picker";
 interface Props {
   toggleModal: () => void;
   handleSetValue: HandleSetValue;
@@ -13,6 +18,16 @@ const ModalOperation = ({ toggleModal, handleSetValue }: Props) => {
     installing: false,
     completed: false,
   });
+  const [dateVal, setDateVal] = useState<any>(new DateObject());
+  const [timeVal, setTimeVal] = useState<any>(new DateObject());
+
+  useEffect(() => {
+    const date = dateVal.convert(gregorian, gregorian_en).format("YYYY/MM/DD");
+    handleSetValue({ date });
+  }, [dateVal, handleSetValue]);
+  useEffect(() => {
+    handleSetValue({ time: timeVal.format("HH:mm a") });
+  }, [timeVal, handleSetValue]);
 
   const handleOnChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setCheckedState({
@@ -84,21 +99,42 @@ const ModalOperation = ({ toggleModal, handleSetValue }: Props) => {
               </ul>
             </div>
             <div className="w-full h-0.5 bg-gray-200 " />
-            <div className="flex justify-between items-center px-5 mt-2">
-              <label htmlFor="date">تاریخ:</label>
-              <input
-                type="date"
-                name="date"
-                id="date"
-                onChange={(e) => handleSetValue({ date: e.target.value })}
-              />
-              <label htmlFor="time">ساعت:</label>
-              <input
+            <div className="flex justify-between items-center px-2 mt-2">
+              <div className="flex items-center">
+                <label htmlFor="date">تاریخ:</label>
+                <DatePicker
+                  id="data"
+                  calendar={persian}
+                  locale={persian_fa}
+                  style={{
+                    width: "6rem",
+                    marginRight: "3px",
+                  }}
+                  onChange={setDateVal}
+                />
+              </div>
+              <div className="flex items-center">
+                <label htmlFor="time">ساعت:</label>
+                <DatePicker
+                  id="time"
+                  disableDayPicker
+                  format="hh:mm A"
+                  type="input"
+                  plugins={[<TimePicker key={"time"} hideSeconds />]}
+                  style={{
+                    width: "4.5rem",
+                    marginRight: "3px",
+                  }}
+                  onChange={setTimeVal}
+                />
+              </div>
+              {/* <input
                 type="time"
                 name="time"
                 id="time"
                 onChange={(e) => handleSetValue({ time: e.target.value })}
-              />
+                className="bg-red"
+              /> */}
             </div>
           </div>
         </div>

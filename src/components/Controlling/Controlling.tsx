@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useCallback, useState } from "react";
 import TrainOrStation from "./TrainOrStation";
 import LinsSelecting from "./LineSelecting";
 import TrainSelecting from "./TrainSelecting";
@@ -19,8 +19,10 @@ const Controlling = () => {
     time: "",
   });
 
-  const handleSetValue: HandleSetValue = (obj) =>
-    setValue((prev) => ({ ...prev, ...obj }));
+  const handleSetValue: HandleSetValue = useCallback(
+    (obj) => setValue((prev) => ({ ...prev, ...obj })),
+    []
+  );
 
   const renderStep = () => {
     switch (currentStep) {
@@ -64,7 +66,12 @@ const Controlling = () => {
         {renderStep()}
         <div className="h-80" />
       </div>
-      {open && <ModalOperation handleSetValue={handleSetValue} toggleModal={toggleModal} />}
+      {open && (
+        <ModalOperation
+          handleSetValue={handleSetValue}
+          toggleModal={toggleModal}
+        />
+      )}
     </>
   );
 };
