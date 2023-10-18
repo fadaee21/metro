@@ -62,9 +62,11 @@ const Controlling = () => {
 
   return (
     <>
-      <div className="w-9/12 flex flex-col items-center">
-        {renderStep()}
-        <div className="h-80" />
+      <div className="container mx-auto">
+        <div className="flex flex-col items-center">
+          {renderStep()}
+          <div />
+        </div>
       </div>
       {open && (
         <ModalOperation

@@ -8,7 +8,7 @@ interface Props {
 
 const PrevButton = ({ onClick, label }: Props) => {
   return (
-    <div className={`flex items-start w-11/12 pb-4`}>
+    <div className={`flex items-start w-11/12 max-w-xl pb-4`}>
       <button
         onClick={onClick}
         className="border-0  bg-inherit text-right w-full flex items-center"

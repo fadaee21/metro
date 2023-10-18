@@ -10,7 +10,7 @@ const NavigatorField = ({ label, onClick }: Props) => {
   return (
     <button
       onClick={onClick}
-      className="bg-white mb-4 borer border-2 border-gray-light-5 w-11/12 flex justify-between items-center px-5 h-14 rounded-customRadius_1 text-field-label cursor-pointer"
+      className="bg-white mb-4 borer border-2 border-gray-light-5 w-11/12 max-w-xl flex justify-between items-center px-5 h-14 rounded-customRadius_1 text-field-label cursor-pointer"
     >
       <p>{label}</p>
       <i className="text-gray-light-5">

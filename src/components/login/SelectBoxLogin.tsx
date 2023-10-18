@@ -13,7 +13,7 @@ const SelectBoxLogin = forwardRef((props: Props, ref: any) => {
       <div
         className={`bg-white  absolute top-0 right-0 z-20  label_border_radius flex items-center h-full w-24 justify-center`}
       >
-        <p className="text-sm text-field-label">نام کاربری</p>
+        <p className="text-sm text-field-label">نام سمت</p>
       </div>
 
       <Select
@@ -29,8 +29,8 @@ const SelectBoxLogin = forwardRef((props: Props, ref: any) => {
             borderRadius: "1rem",
             backgroundColor: "var(--field-background)",
             boxShadow: "none",
-            fontSize: "1.125rem",
-            lineHeight: "1.75rem",
+            fontSize: "0.875rem",
+            lineHeight: "1.25rem",
           }),
           menu: (base) => ({
             ...base,
@@ -46,8 +46,8 @@ const SelectBoxLogin = forwardRef((props: Props, ref: any) => {
             color: "var(--field-label)",
             borderBottom: "1px solid  var(--background-gray-l-hex)",
             backgroundColor: "var(--field-background)",
-            fontSize: "1.125rem",
-            lineHeight: "1.75rem",
+            fontSize: "0.875rem",
+            lineHeight: "1.25rem",
             "&:hover": {
               backgroundColor: " var(--background-gray-l-hex)",
             },

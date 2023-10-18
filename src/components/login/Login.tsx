@@ -15,13 +15,14 @@ const Login = () => {
   const router = useRouter();
   const { control, handleSubmit, watch } = useForm<IFormInput>();
   const routerHandle =
-    watch("role")?.label === "کنترل" ? "/controlling" : "/photographer";
+    watch("role.label") === "کنترل" ? "/controlling" : "/photographer";
   const disabledSubmit =
-    !watch("username") && !watch("password") && !watch("role");
+    !watch("username") || !watch("password") || !watch("role");
   const submitForm: SubmitHandler<IFormInput> = (data) => {
     console.log(data);
-    router.replace(routerHandle);
+    router.push(routerHandle);
   };
+
   return (
     <form onSubmit={handleSubmit(submitForm)}>
       <div className="w-398  ">

@@ -25,3 +25,10 @@ export interface PropsSelectControlling {
   setCurrentStep: Dispatch<SetStateAction<StepType>>;
   handleSetValue: HandleSetValue;
 }
+
+
+export interface IFormInput {
+  username: string;
+  password: string;
+  role: { label: string; value: string };
+}

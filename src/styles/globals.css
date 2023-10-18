@@ -62,8 +62,11 @@ body {
     /* color: red; */
   }
 }
-
-
+@layer components {
+  .table_row_control {
+    @apply p-1 sm:p-3 font-normal whitespace-nowrap;
+  }
+}
 
 /* .a {
   color: #fed302;
