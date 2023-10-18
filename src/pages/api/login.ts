@@ -21,7 +21,7 @@ export default function handler(
             secure: process.env.NODE_ENV === "production",
             maxAge: 60 * 60 * 24 * 2,
             path: "/",
-            sameSite:"none"
+            sameSite:"strict"
           })
         );
         res.status(201).json({ message: "success login" });

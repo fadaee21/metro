@@ -71,40 +71,49 @@ const ModalOperation = ({
             <div className="px-5 py-2 ">
               <ul>
                 <li className="my-4">
-                  <input
-                    type="checkbox"
-                    name="printing"
-                    id="printing"
-                    className="ml-1"
-                    checked={checkedState.printing}
-                    value={1}
-                    onChange={handleOnChange}
-                  />
-                  <label>در حال طراحی چاپ</label>
+                  <label className="label_checkBox">
+                    <input
+                      type="checkbox"
+                      name="printing"
+                      id="printing"
+                      className="ml-1"
+                      checked={checkedState.printing}
+                      value={1}
+                      onChange={handleOnChange}
+                    />
+                    <span className="span_checkBox" />
+                    در حال طراحی چاپ
+                  </label>
                 </li>
                 <li className="my-4">
-                  <input
-                    type="checkbox"
-                    name="installing"
-                    id="installing"
-                    className="ml-1"
-                    checked={checkedState.installing}
-                    value={2}
-                    onChange={handleOnChange}
-                  />
-                  <label>آماده سازی نصب</label>
+                  <label className="label_checkBox">
+                    <input
+                      type="checkbox"
+                      name="installing"
+                      id="installing"
+                      className="ml-1"
+                      checked={checkedState.installing}
+                      value={2}
+                      onChange={handleOnChange}
+                    />
+                    <span className="span_checkBox" />
+                    آماده سازی نصب
+                  </label>
                 </li>
                 <li className="my-4">
-                  <input
-                    type="checkbox"
-                    name="completed"
-                    id="completed"
-                    className="ml-1"
-                    checked={checkedState.completed}
-                    value={3}
-                    onChange={handleOnChange}
-                  />
-                  <label>نصب شد</label>
+                  <label className="label_checkBox">
+                    <input
+                      type="checkbox"
+                      name="completed"
+                      id="completed"
+                      className="ml-1"
+                      checked={checkedState.completed}
+                      value={3}
+                      onChange={handleOnChange}
+                    />
+                    <span className="span_checkBox" />
+                    نصب شد
+                  </label>
                 </li>
               </ul>
             </div>

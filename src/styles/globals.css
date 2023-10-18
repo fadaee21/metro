@@ -66,6 +66,21 @@ body {
   .table_row_control {
     @apply p-1 sm:p-3 font-normal whitespace-nowrap;
   }
+  .span_checkBox {
+    @apply absolute right-0 h-3 w-3 bg-white border;
+  }
+  .label_checkBox {
+    @apply flex items-center w-fit relative cursor-pointer text-sm;
+  }
+
+  .label_checkBox input:checked ~ .span_checkBox {
+    @apply bg-black transition-colors ;
+  }
+}
+
+/* Hide the default checkbox */
+input[type="checkbox"] {
+  visibility: hidden;
 }
 
 /* .a {
