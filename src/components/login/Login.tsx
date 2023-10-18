@@ -4,6 +4,8 @@ import LoginButton from "./LoginButtons";
 import options from "@/mock/login.json";
 import { useForm, Controller, SubmitHandler } from "react-hook-form";
 import { useRouter } from "next/router";
+import axios from "axios";
+import { apiAxiosApp } from "@/service/axios";
 
 interface IFormInput {
   username: string;
@@ -18,9 +20,17 @@ const Login = () => {
     watch("role.label") === "کنترل" ? "/controlling" : "/photographer";
   const disabledSubmit =
     !watch("username") || !watch("password") || !watch("role");
-  const submitForm: SubmitHandler<IFormInput> = (data) => {
+  const submitForm: SubmitHandler<IFormInput> = async (data) => {
     console.log(data);
-    router.push(routerHandle);
+    try {
+      const res = await apiAxiosApp.post("/api/login");
+      console.log(res.data);
+      if (res.status === 201) {
+        router.push(routerHandle);
+      }
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   return (
