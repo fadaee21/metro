@@ -16,6 +16,7 @@ const ImageUpload = forwardRef((props: Props, ref: any) => {
 
   const enableCamera = (e: React.MouseEvent) => {
     e.stopPropagation();
+    e.preventDefault();
     if (navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
       navigator.mediaDevices
         .getUserMedia({ video: true })
