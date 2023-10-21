@@ -5,7 +5,7 @@ interface Props {
   options: Option[];
   placeholder: string | undefined;
   isDisabled?: boolean;
-  fieldValue: Option;
+  fieldValue: Option | undefined;
 }
 
 const SelectBox = forwardRef((props: Props, ref: any) => {
