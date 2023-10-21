@@ -132,7 +132,7 @@ const ImageUpload = forwardRef((props: Props, ref: any) => {
       <video ref={videoRef} width="640" height="480" />
       <button onClick={enableCamera}>Enable Camera</button>
       <button onClick={disableCamera}>Disable Camera</button>
-      {stream && <button onClick={capture}>TAKE PHOTO</button>}
+       <button onClick={capture}>TAKE PHOTO</button>
     </>
   );
 });
