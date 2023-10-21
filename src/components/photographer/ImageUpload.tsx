@@ -19,7 +19,8 @@ const ImageUpload = forwardRef((props: Props, ref: any) => {
     e.preventDefault();
     if (navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
       navigator.mediaDevices
-        .getUserMedia({ video: true })
+        // .getUserMedia({ video: true })
+        .getUserMedia({ video: { facingMode: "environment" } })
         .then((stream) => {
           let video = videoRef.current;
           if (video) {
@@ -90,7 +91,7 @@ const ImageUpload = forwardRef((props: Props, ref: any) => {
               src={value}
               alt="Description of Image"
               fill
-              className="rounded-customRadius_1 w-full h-auto object-contain"
+              className="rounded-customRadius_1 w-full h-auto object-fill"
             />
             <div>
               <button
@@ -151,13 +152,26 @@ const ImageUpload = forwardRef((props: Props, ref: any) => {
           {...field}
         />
       </div>
-      <video
-        ref={videoRef}
-        autoPlay
-        style={{ width: "100%", height: "100%" }}
-      ></video>
-      <button  className="h-14 font-bold py-2 px-4 rounded-customRadius_1 shadow-lg w-full  hover:bg-background-gray-l" onClick={capture}>Capture</button>
-      <button  className="h-14 font-bold py-2 px-4 rounded-customRadius_1 shadow-lg w-full  hover:bg-background-gray-l" onClick={disableCamera}>Disable Camera</button>
+      <div className="relative w-full h-full">
+        <video
+          ref={videoRef}
+          autoPlay
+          style={{ width: "100%", height: "100%" }}
+          className="absolute top-0 left-0 w-full h-full"
+        ></video>
+        <button
+          className=" absolute bottom-20 h-14 font-bold py-2 px-4 rounded-customRadius_1 shadow-lg w-full  hover:bg-background-gray-l"
+          onClick={capture}
+        >
+          Capture
+        </button>
+        <button
+          className=" absolute bottom-10 h-14 font-bold py-2 px-4 rounded-customRadius_1 shadow-lg w-full  hover:bg-background-gray-l"
+          onClick={disableCamera}
+        >
+          Disable Camera
+        </button>
+      </div>
     </>
   );
 });
