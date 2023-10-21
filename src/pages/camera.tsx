@@ -33,7 +33,6 @@ const WebcamCapture: React.FC = () => {
 
   const capture = React.useCallback(() => {
     let canvas = document.createElement("canvas");
-    
     let context = canvas.getContext("2d");
     let video = videoRef.current;
     if (context && video) {
@@ -48,7 +47,7 @@ const WebcamCapture: React.FC = () => {
       <video ref={videoRef} width="640" height="480" />
       <button onClick={enableCamera}>Enable Camera</button>
       <button onClick={disableCamera}>Disable Camera</button>
-      <button onClick={capture}>Capture photo</button>
+      {stream && <button onClick={capture}></button>}
     </>
   );
 };

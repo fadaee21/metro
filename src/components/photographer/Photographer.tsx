@@ -12,7 +12,7 @@ import SubmitButton from "@/components/photographer/SubmitButton";
 // import StringField from "@/components/login/StringFieldLogin";
 interface IFormInput {
   trainStation: { value: number; label: string };
-  commercialSpace: { value: number; label: string };
+  commercialSpace: { value: number; label: string } | undefined;
   commercialCode: string;
   image: string;
 }
@@ -34,7 +34,10 @@ const Photographer = () => {
       "trainStation",
       data.trainStation ? data.trainStation.value.toString() : ""
     );
-    formData.append("commercialSpace", data.commercialSpace.value.toString());
+    formData.append(
+      "commercialSpace",
+      data.commercialSpace ? data.commercialSpace.value.toString() : ""
+    );
     formData.append("commercialCode", data.commercialCode);
     formData.append("image", imageVal || "");
     console.log(formData);

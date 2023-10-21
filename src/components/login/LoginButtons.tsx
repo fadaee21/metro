@@ -8,7 +8,7 @@ const LoginButton = ({ label, disabled }: LoginButtonProps) => {
     <button
       disabled={disabled}
       type="submit"
-      className="mt-10 hover:bg-button-red-l bg-button-red w-full h-12 font-bold py-2 px-4 rounded shadow-lg text-white "
+      className="my-10 hover:bg-button-red-l bg-button-red w-full h-12 font-bold py-2 px-4 rounded shadow-lg text-white "
     >
       {label}
     </button>
