@@ -1,6 +1,7 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+@import url("./font.css");
 
 :root {
   --foreground-rgb: 0, 0, 0;
@@ -9,39 +10,30 @@
   --border-yellow-hex: #fed302;
   --background-gray-hex: #f5f6fa;
   --font-title-black: #060606;
-  --button-red-hex: #e4051a;
-  --button-red-hex-l: #fa263a;
+  --button-red-custom: #e4051a;
+  --button-red-custom-l: #fa0b21;
+  --button-green-custom: #00b862;
+  --button-green-custom-l: #00d973;
+  --button-orange-custom: #ffb95c;
+  --button-orange-custom-l: #ffc06c;
   --field-background: #e6e8ec;
   --field-border: #707070;
   --background-gray-l-hex: #c6c6c6;
   --field-label: #474546;
+  --field-disabled: hsl(0, 0%, 95%);
+  --gray-light-5: #d1d1d1;
+  --border-radius_1: 1rem;
 }
 
-/* @media (prefers-color-scheme: dark) {
-  :root {
-    --foreground-rgb: 255, 255, 255;
-    --background-start-rgb: 0, 0, 0;
-    --background-end-rgb: 0, 0, 0;
-  }
-} */
-
-/* body {
-  color: rgb(var(--foreground-rgb));
-  background: linear-gradient(
-      to bottom,
-      transparent,
-      rgb(var(--background-end-rgb))
-    )
-    rgb(var(--background-start-rgb));
-} */
-
-html,
 body {
   padding: 0;
   margin: 0;
   font-family: dana, tahoma, serif;
   position: relative;
   background: #f5f6fa;
+}
+* {
+  font-family: dana, tahoma, serif;
 }
 
 @supports (font-variation-settings: normal) {
@@ -51,15 +43,82 @@ body {
   }
   * {
     font-family: "dana VF", tahoma, serif;
+    font-variation-settings: "FANU" 1;
   }
 }
 
-body {
-  width: 100%;
-  scroll-behavior: smooth;
-  height: 100vh;
-  display: flex;
-  flex-direction: column;
-  flex: 1 1 100% !important;
-  font-family: dana, tahoma, serif;
+@layer utilities {
+  .label_border_radius {
+    border-radius: 0 0.5rem 0.5rem 0;
+  }
+
+  .active_button {
+    color: white;
+    background-color: var(--button-red-custom);
+  }
+
+  .place_holder_disabled::placeholder {
+    color: hsl(0, 0%, 50%);
+    /* color: red; */
+  }
 }
+@layer components {
+  .table_row_control {
+    @apply p-1 sm:p-3 font-normal whitespace-nowrap;
+  }
+  .span_checkBox {
+    @apply absolute right-0 h-3 w-3 bg-white border;
+  }
+  .label_checkBox {
+    @apply flex items-center w-fit relative cursor-pointer text-sm;
+  }
+
+  .label_checkBox input:checked ~ .span_checkBox {
+    @apply bg-black transition-colors ;
+  }
+}
+
+/* Hide the default checkbox */
+input[type="checkbox"] {
+  visibility: hidden;
+}
+
+/* .a {
+  color: #fed302;
+}
+.a {
+  color: #f5f6fa;
+}
+.a {
+  color: #e4051a;
+}
+.a {
+  color: #e6e8ec;
+}
+.a {
+  color: #ffffff;
+}
+.a {
+  color: #d1d1d1;
+}
+.a {
+  color: #00b862;
+}
+.a {
+  color: #ffb95c;
+}
+.a {
+  color: #060606;
+}
+.a {
+  color: #474546;
+}
+.a {
+  color: #b8b8b8;
+}
+.a {
+  color: #ffffff;
+}
+.a {
+  color: #060606;
+} */

@@ -1,9 +1,11 @@
-import SelectField from "@/components/login/SelectField";
-import StringField from "@/components/login/StringField";
+import SelectBoxLogin from "@/components/login/SelectBoxLogin";
+import StringFieldLogin from "@/components/login/StringFieldLogin";
 import LoginButton from "./LoginButtons";
-import options from "../../mock/login.json";
+import options from "@/mock/login.json";
 import { useForm, Controller, SubmitHandler } from "react-hook-form";
 import { useRouter } from "next/router";
+import axios from "axios";
+import { apiAxiosApp } from "@/service/axios";
 
 interface IFormInput {
   username: string;
@@ -13,11 +15,24 @@ interface IFormInput {
 
 const Login = () => {
   const router = useRouter();
-  const { control, handleSubmit } = useForm<IFormInput>();
-  const submitForm: SubmitHandler<IFormInput> = (data) => {
+  const { control, handleSubmit, watch } = useForm<IFormInput>();
+  const routerHandle =
+    watch("role.label") === "کنترل" ? "/controlling" : "/photographer";
+  const disabledSubmit =
+    !watch("username") || !watch("password") || !watch("role");
+  const submitForm: SubmitHandler<IFormInput> = async (data) => {
     console.log(data);
-    router.push("/reg-info");
+    try {
+      const res = await apiAxiosApp.post("/api/login");
+      console.log(res.data);
+      if (res.status === 201) {
+        router.push(routerHandle);
+      }
+    } catch (error) {
+      console.log(error);
+    }
   };
+
   return (
     <form onSubmit={handleSubmit(submitForm)}>
       <div className="w-398  ">
@@ -27,25 +42,29 @@ const Login = () => {
         <div className="space-y-6 mt-10">
           <Controller
             name="username"
+            defaultValue=""
             control={control}
             render={({ field }) => (
-              <StringField label="نام کاربری" type="text" {...field} />
+              <StringFieldLogin label="نام کاربری" type="text" {...field} />
             )}
           />
           <Controller
             name="password"
+            defaultValue=""
             control={control}
             render={({ field }) => (
-              <StringField label="کلمه عبور" type="password" {...field} />
+              <StringFieldLogin label="کلمه عبور" type="password" {...field} />
             )}
           />
           <Controller
             name="role"
             control={control}
-            render={({ field }) => <SelectField options={options} {...field} />}
+            render={({ field }) => (
+              <SelectBoxLogin options={options} {...field} />
+            )}
           />
         </div>
-        <LoginButton label="ورود" />
+        <LoginButton disabled={disabledSubmit} label="ورود" />
       </div>
     </form>
   );
