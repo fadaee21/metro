@@ -10,7 +10,7 @@ interface Props {
 
 const ImageUpload = forwardRef((props: Props, ref: any) => {
   const { disabled, onChange, setImageVal, value, ...field } = props;
-
+  const fileInput = useRef<HTMLInputElement>(null);
   const videoRef = useRef<HTMLVideoElement>(null);
   const [stream, setStream] = useState<MediaStream | null>(null);
 
@@ -41,22 +41,31 @@ const ImageUpload = forwardRef((props: Props, ref: any) => {
     }
   };
 
-  const capture = React.useCallback(() => {
+  const capture = () => {
     let canvas = document.createElement("canvas");
     let context = canvas.getContext("2d");
-    let video = videoRef.current;
-    if (context && video) {
-      context.drawImage(video, 0, 0, 640, 480);
+    if (context && videoRef.current) {
+      context.drawImage(
+        videoRef.current,
+        0,
+        0,
+        videoRef.current.videoWidth,
+        videoRef.current.videoHeight
+      );
       canvas.toBlob((blob) => {
         if (blob !== null) {
           const imageUrl = URL.createObjectURL(blob);
-          console.log(imageUrl);
           onChange(imageUrl);
         }
       });
     }
-  }, [videoRef, onChange]);
-  
+  };
+
+  const handleSelectFile = (e: React.MouseEvent) => {
+    e.preventDefault();
+    e.stopPropagation();
+    fileInput.current?.click();
+  };
 
   const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files && e.target.files[0];
@@ -73,16 +82,6 @@ const ImageUpload = forwardRef((props: Props, ref: any) => {
           !disabled && "bg-white"
         }`}
       >
-        <input
-          type="file"
-          id="imageUpload"
-          accept=".jpg, .jpeg, .png"
-          style={{ display: "none" }}
-          onChange={handleImageChange}
-          disabled={disabled}
-          ref={ref}
-          {...field}
-        />
         {value ? (
           <div className="relative w-full h-full">
             <Image
@@ -118,21 +117,45 @@ const ImageUpload = forwardRef((props: Props, ref: any) => {
             htmlFor="imageUpload"
             className={disabled ? "" : "cursor-pointer"}
           >
-            <Image
-              src={"/assets/icons/add-photo.svg"}
-              width={0}
-              height={0}
-              sizes="100vw"
-              alt="add-photo"
-              className="w-full h-auto"
-            />
+            <button onClick={enableCamera}>
+              <Image
+                src={"/assets/icons/add-photo.svg"}
+                width={0}
+                height={0}
+                sizes="100vw"
+                alt="add-photo"
+                className="w-full h-auto"
+              />
+            </button>
           </label>
         )}
       </div>
-      <video ref={videoRef} width="640" height="480" />
-      <button onClick={enableCamera}>Enable Camera</button>
-      <button onClick={disableCamera}>Disable Camera</button>
-       <button onClick={capture}>TAKE PHOTO</button>
+      <div>
+        <button
+          className="h-14 font-bold py-2 px-4 rounded-customRadius_1 shadow-lg w-full  hover:bg-background-gray-l"
+          onClick={handleSelectFile}
+          disabled={disabled}
+        >
+          انتخاب عکس
+        </button>
+        <input
+          type="file"
+          id="imageUpload"
+          accept=".jpg, .jpeg, .png"
+          style={{ display: "none" }}
+          onChange={handleImageChange}
+          disabled={disabled}
+          ref={fileInput}
+          {...field}
+        />
+      </div>
+      <video
+        ref={videoRef}
+        autoPlay
+        style={{ width: "100%", height: "100%" }}
+      ></video>
+      <button  className="h-14 font-bold py-2 px-4 rounded-customRadius_1 shadow-lg w-full  hover:bg-background-gray-l" onClick={capture}>Capture</button>
+      <button  className="h-14 font-bold py-2 px-4 rounded-customRadius_1 shadow-lg w-full  hover:bg-background-gray-l" onClick={disableCamera}>Disable Camera</button>
     </>
   );
 });
