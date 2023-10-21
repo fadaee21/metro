@@ -11,6 +11,7 @@ export default function handler(
 ) {
   const token = process.env.TOKEN;
   if (req.method === "POST") {
+    console.log(token)
     try {
       const serverResponse = { status: 201, token }; //TODO:making request to server
       if (serverResponse.status === 201 && serverResponse.token) {

@@ -13,11 +13,12 @@ const ImageUpload = forwardRef((props: Props, ref: any) => {
   const fileInput = useRef<HTMLInputElement>(null);
   const videoRef = useRef<HTMLVideoElement>(null);
   const [stream, setStream] = useState<MediaStream | null>(null);
-
+  const [isRecording, setIsRecording] = useState(false);
   const enableCamera = (e: React.MouseEvent) => {
     e.stopPropagation();
     e.preventDefault();
     if (navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
+      setIsRecording(true);
       navigator.mediaDevices
         // .getUserMedia({ video: true })
         .getUserMedia({ video: { facingMode: "environment" } })
@@ -35,30 +36,35 @@ const ImageUpload = forwardRef((props: Props, ref: any) => {
     }
   };
 
-  const disableCamera = () => {
+  const disableCamera = (e: React.MouseEvent) => {
+    e.preventDefault();
+    e.stopPropagation();
     if (stream) {
+      setIsRecording(false);
       let tracks = stream.getTracks();
       tracks.forEach((track) => track.stop());
-      console.log(tracks);
       setStream(null);
+      if (videoRef.current) {
+        videoRef.current.srcObject = null; // Set the video element's srcObject to null
+      }
     }
   };
 
-  const capture = () => {
+  const capture = (e: React.MouseEvent) => {
+    e.preventDefault();
+    e.stopPropagation();
     let canvas = document.createElement("canvas");
     let context = canvas.getContext("2d");
     if (context && videoRef.current) {
-      context.drawImage(
-        videoRef.current,
-        0,
-        0,
-        videoRef.current.videoWidth,
-        videoRef.current.videoHeight
-      );
+      canvas.width = videoRef.current.videoWidth; // Set canvas width to video width
+      canvas.height = videoRef.current.videoHeight; // Set canvas height to video height
+      context.drawImage(videoRef.current, 0, 0, canvas.width, canvas.height);
       canvas.toBlob((blob) => {
         if (blob !== null) {
           const imageUrl = URL.createObjectURL(blob);
           onChange(imageUrl);
+          disableCamera(e);
+          setIsRecording(false);
         }
       });
     }
@@ -91,7 +97,7 @@ const ImageUpload = forwardRef((props: Props, ref: any) => {
               src={value}
               alt="Description of Image"
               fill
-              className="rounded-customRadius_1 w-full h-auto object-fill"
+              className="rounded-customRadius_1 w-full h-auto object-contain"
             />
             <div>
               <button
@@ -152,26 +158,23 @@ const ImageUpload = forwardRef((props: Props, ref: any) => {
           {...field}
         />
       </div>
-      <div className="relative w-full h-full">
-        <video
-          ref={videoRef}
-          autoPlay
-          style={{ width: "100%", height: "100%" }}
-          className="absolute top-0 left-0 w-full h-full"
-        ></video>
-        <button
-          className=" absolute bottom-20 h-14 font-bold py-2 px-4 rounded-customRadius_1 shadow-lg w-full  hover:bg-background-gray-l"
-          onClick={capture}
-        >
-          Capture
-        </button>
-        <button
-          className=" absolute bottom-10 h-14 font-bold py-2 px-4 rounded-customRadius_1 shadow-lg w-full  hover:bg-background-gray-l"
-          onClick={disableCamera}
-        >
-          Disable Camera
-        </button>
-      </div>
+      {isRecording && (
+        <div className="bg-black fixed top-0 left-0 right-0 bottom-0">
+          <video ref={videoRef} autoPlay className="w-full h-full"></video>
+          <button
+            className="absolute text-white bottom-10 left-10 h-14 font-bold py-2 px-4 rounded-customRadius_1 shadow-lg  hover:bg-background-gray-l"
+            onClick={capture}
+          >
+            Capture
+          </button>
+          <button
+            className="absolute text-white bottom-10 right-10 h-14 font-bold py-2 px-4 rounded-customRadius_1 shadow-lg hover:bg-background-gray-l"
+            onClick={disableCamera}
+          >
+            Disable Camera
+          </button>
+        </div>
+      )}
     </>
   );
 });
