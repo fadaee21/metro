@@ -4,7 +4,6 @@ import LoginButton from "./LoginButtons";
 import options from "@/mock/login.json";
 import { useForm, Controller, SubmitHandler } from "react-hook-form";
 import { useRouter } from "next/router";
-import axios from "axios";
 import { apiAxiosApp } from "@/service/axios";
 
 interface IFormInput {
