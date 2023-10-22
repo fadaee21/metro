@@ -23,6 +23,7 @@ const Photographer = () => {
   const [success, setSuccess] = useState(false);
   const { control, handleSubmit, watch, reset } = useForm<IFormInput>();
   const submitForm: SubmitHandler<IFormInput> = (data) => {
+    console.log("submitting")
     if (success) {
       // clear all data for POSTing new data
       reset();

@@ -1,12 +1,14 @@
 import { NextRequest, NextResponse } from "next/server";
 
 export default async function middleware(req: NextRequest) {
-  const token = req.cookies.has("login_token");
+  const cookieToken = req.cookies.get("login_token");
+  const login_token_env = process.env.TOKEN;
+  const isTokenValid = login_token_env === cookieToken?.value;
   const pathName = req.nextUrl.pathname;
-  if (!token && pathName.startsWith("/controlling")) {
+  if (!isTokenValid && pathName.startsWith("/controlling")) {
     return NextResponse.redirect(new URL("/", req.url));
   }
-  if (!token && pathName.startsWith("/photographer")) {
+  if (!isTokenValid && pathName.startsWith("/photographer")) {
     return NextResponse.redirect(new URL("/", req.url));
   }
 }
