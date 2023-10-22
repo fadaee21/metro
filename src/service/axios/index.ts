@@ -1,4 +1,4 @@
 import axios from "axios";
 export const apiAxiosApp = axios.create({
-  baseURL: process.env.NEXT_PUBLIC_APP_URL,
+  baseURL: process.env.NODE_ENV === "development" ? "http://localhost:3000" : "",
 });
