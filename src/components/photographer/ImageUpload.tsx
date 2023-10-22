@@ -13,11 +13,13 @@ const ImageUpload = forwardRef((props: Props, ref: any) => {
   const fileInput = useRef<HTMLInputElement>(null);
   const videoRef = useRef<HTMLVideoElement>(null);
   const [stream, setStream] = useState<MediaStream | null>(null);
+  const [capturing, setCapturing] = useState(false);
 
   const enableCamera = (e: React.MouseEvent) => {
     e.stopPropagation();
     e.preventDefault();
     if (navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
+      setCapturing(true);
       navigator.mediaDevices
         // .getUserMedia({ video: true })
         .getUserMedia({ video: { facingMode: "environment" } })
@@ -36,6 +38,7 @@ const ImageUpload = forwardRef((props: Props, ref: any) => {
   };
 
   const disableCamera = () => {
+    setCapturing(false);
     if (stream) {
       let tracks = stream.getTracks();
       tracks.forEach((track) => track.stop());
@@ -152,26 +155,28 @@ const ImageUpload = forwardRef((props: Props, ref: any) => {
           {...field}
         />
       </div>
-      <div className="relative w-full h-full">
-        <video
-          ref={videoRef}
-          autoPlay
-          style={{ width: "100%", height: "100%" }}
-          className="absolute top-0 left-0 w-full h-full"
-        ></video>
-        <button
-          className=" absolute bottom-20 h-14 font-bold py-2 px-4 rounded-customRadius_1 shadow-lg w-full  hover:bg-background-gray-l"
-          onClick={capture}
-        >
-          Capture
-        </button>
-        <button
-          className=" absolute bottom-10 h-14 font-bold py-2 px-4 rounded-customRadius_1 shadow-lg w-full  hover:bg-background-gray-l"
-          onClick={disableCamera}
-        >
-          Disable Camera
-        </button>
-      </div>
+      {capturing && (
+        <div className="relative w-full h-full">
+          <video
+            ref={videoRef}
+            autoPlay
+            style={{ width: "100%", height: "100%" }}
+            className="absolute top-0 left-0 w-full h-full"
+          ></video>
+          <button
+            className=" absolute bottom-20 h-14 font-bold py-2 px-4 rounded-customRadius_1 shadow-lg w-full  hover:bg-background-gray-l"
+            onClick={capture}
+          >
+            Capture
+          </button>
+          <button
+            className=" absolute bottom-10 h-14 font-bold py-2 px-4 rounded-customRadius_1 shadow-lg w-full  hover:bg-background-gray-l"
+            onClick={disableCamera}
+          >
+            Disable Camera
+          </button>
+        </div>
+      )}
     </>
   );
 });
